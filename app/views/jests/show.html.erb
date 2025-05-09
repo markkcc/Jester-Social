@@ -1,0 +1,28 @@
+<div class="jest-show-page">
+  <div class="author-card">
+    <div class="author-header">
+      <div class="author-avatar">
+        <% if @jest.user.profile_picture.present? %>
+          <%= image_tag @jest.user.profile_picture_path, alt: "#{@jest.user.username}'s avatar" %>
+        <% else %>
+          <%= image_tag "/images/profile_pics/profile_#{rand(1..9)}.png", alt: "Random clown avatar" %>
+        <% end %>
+      </div>
+      <div class="author-info">
+        <h2 class="author-name"><%= @jest.user.username %></h2>
+        <div class="author-role"><%= @jest.user.identity.titleize %></div>
+        <div class="author-stats">
+          <%= pluralize(@jest.user.jests.count, 'jest') %> shared
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="jest-container">
+    <%= render @jest %>
+  </div>
+
+  <div class="back-link">
+    <%= link_to "← Back to all jests", jests_path, class: "secondary-button" %>
+  </div>
+</div>

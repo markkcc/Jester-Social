@@ -1,0 +1,27 @@
+<%= link_to jest_path(jest), class: "jest-box" do %>
+  <div class="jest-header">
+    <div class="jest-user">
+      <div class="jest-avatar">
+        <% if jest.user&.profile_picture.present? %>
+          <%= image_tag jest.user.profile_picture_path, alt: "#{jest.user.username}'s avatar" %>
+        <% else %>
+          <%= image_tag "/images/profile_pics/profile_#{rand(1..9)}.png", alt: "Random clown avatar" %>
+        <% end %>
+      </div>
+      <div class="jest-author">
+        <%= jest.user&.username || "Anonymous Clown" %>
+      </div>
+    </div>
+    <div class="jest-meta">
+      <% if jest.audience == "secret" %>
+        <div class="secret-label">SECRET</div>
+      <% end %>
+      <div class="jest-time">
+        <%= time_ago_in_words(jest.created_at) %> ago
+      </div>
+    </div>
+  </div>
+  <div class="jest-content">
+    <%= jest.content %>
+  </div>
+<% end %> 

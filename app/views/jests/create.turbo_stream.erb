@@ -1,0 +1,16 @@
+<%= turbo_stream.prepend "jests" do %>
+  <%= render "jest", jest: @jest %>
+<% end %>
+
+<%= turbo_stream.update "new_jest" do %>
+  <%= form_with model: Jest.new, class: "jest-form" do |form| %>
+    <div class="form-group">
+      <%= form.text_area :content, 
+          required: true, 
+          placeholder: "What's on your mind, clown? 🤡", 
+          maxlength: 280,
+          rows: 3 %>
+    </div>
+    <%= form.submit "Share your jest", class: "primary-button" %>
+  <% end %>
+<% end %> 

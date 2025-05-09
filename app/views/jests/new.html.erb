@@ -1,0 +1,12 @@
+<h1>New jest</h1>
+
+<%= form_with model: @jest, url: jests_path do |form| %>
+  <div>
+    <%= form.label :content %>
+    <%= form.text_field :content %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
