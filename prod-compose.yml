@@ -1,0 +1,46 @@
+version: '3.8'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    # No direct port exposure to host - Caddy will handle this
+    volumes:
+      - .:/rails
+      - bundle_cache:/usr/local/bundle
+      - node_modules:/rails/node_modules
+      - sqlite_data:/rails/db
+    environment:
+      - RAILS_ENV=production  # Changed to production
+      - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+      - RAILS_LOG_TO_STDOUT=true
+    command: ./bin/rails server -b 0.0.0.0 -p 3000
+    networks:
+      - app_network
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - web
+    networks:
+      - app_network
+    restart: unless-stopped
+
+volumes:
+  bundle_cache:
+  node_modules:
+  sqlite_data:
+  caddy_data:
+  caddy_config:
+
+networks:
+  app_network:
+    driver: bridge
