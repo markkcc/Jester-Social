@@ -1,0 +1,295 @@
+.jest-card {
+  background: var(--secondary-purple);
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.jest-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.jest-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.author-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.author-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.author-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.username {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.identity {
+  font-size: 0.9rem;
+  color: #666;
+  text-transform: capitalize;
+}
+
+.timestamp {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.jest-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.jest-content {
+  margin: 1rem 0;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: white;
+}
+
+.jest-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.jest-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.honk-button,
+.bonk-button,
+.comment-link,
+.leave-circus-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.1rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 4px;
+  color: inherit;
+  font-size: 0.8rem;
+  text-decoration: none;
+  min-width: 24px;
+  min-height: 24px;
+  justify-content: center;
+  box-shadow: none;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.leave-circus-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 1.5rem 3rem !important;
+  border: 2px dotted #ff6b6b !important;
+  background: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 4px;
+  color: inherit;
+  font-size: 0.9rem;
+  text-decoration: none;
+  min-width: 24px;
+  min-height: 24px;
+  justify-content: center;
+  box-shadow: none;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.leave-circus-button:hover {
+  transform: scale(1.1);
+  background-color: rgba(255, 107, 107, 0.1);
+  border-color: #ff6b6b;
+}
+
+/* Remove borders and shadows from forms containing these buttons */
+form[data-turbo-frame] {
+  display: inline;
+  border: none;
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+}
+
+form[data-turbo-frame] button[type="submit"]:not(.leave-circus-button) {
+  border: none;
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  min-width: 24px;
+  min-height: 24px;
+  justify-content: center;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+form[data-turbo-frame] button[type="submit"]:not(.leave-circus-button):hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  transform: scale(1.1);
+  border-radius: 4px;
+  padding: 0.1rem;
+}
+
+.honk-button:hover,
+.bonk-button:hover,
+.comment-link:hover {
+  transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-radius: 4px;
+  padding: 0.1rem;
+}
+
+.honk-button.honked,
+.bonk-button.bonked {
+  background-color: rgba(255, 107, 107, 0.2);
+}
+
+.honk-button.honked .honk-icon,
+.honk-button.honked .honk-count,
+.bonk-button.bonked .bonk-icon,
+.bonk-button.bonked .bonk-count {
+  color: #ff6b6b;
+}
+
+.honk-button.disabled,
+.bonk-button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.honk-icon,
+.bonk-icon,
+.comment-icon {
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.honk-count,
+.bonk-count,
+.comment-count {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-left: 0.15rem;
+}
+
+.comments-section {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.comment {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.comment .avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.comment .username {
+  font-weight: bold;
+}
+
+.delete-comment {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: #dc3545;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 0 0.5rem;
+}
+
+.comment-content {
+  margin-bottom: 0.5rem;
+}
+
+.comment-footer {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.comment-form {
+  margin-top: 1rem;
+}
+
+.comment-form textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.login-prompt {
+  text-align: center;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 4px;
+  margin-top: 1rem;
+}
+
+.error-message {
+  color: #dc3545;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+} 

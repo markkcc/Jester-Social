@@ -1,0 +1,17 @@
+<%= turbo_stream.update "jests" do %>
+  <%= render @jests %>
+<% end %>
+
+<%= turbo_stream.update "pagination-container" do %>
+  <div class="pagination-container">
+    <% if @page > 1 %>
+      <%= link_to "← Previous", jests_path(page: @page - 1), class: "pagination-button" %>
+    <% end %>
+    
+    <span class="page-number">Page <%= @page %></span>
+    
+    <% if @has_more %>
+      <%= link_to "Next →", jests_path(page: @page + 1), class: "pagination-button" %>
+    <% end %>
+  </div>
+<% end %> 

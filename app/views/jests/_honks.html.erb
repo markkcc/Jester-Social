@@ -1,0 +1,52 @@
+<% honkable = defined?(jest) ? jest : comment %>
+<div id="jest_<%= honkable.id %>_honks" class="honks">
+  <% if current_user %>
+    <% if honkable.is_a?(Comment) %>
+      <%= form_with url: jest_comment_honks_path(honkable.jest, honkable), method: :post, data: { turbo_frame: "jest_#{honkable.id}_honks" } do |f| %>
+        <button type="submit" class="honk-button <%= honkable.honked_by?(current_user) ? 'honked' : '' %>" onclick="showHonkText(event, this)">
+          <span class="honk-icon">🎉</span>
+          <span class="honk-count"><%= honkable.honks.count > 0 ? honkable.honks.count : "&nbsp;".html_safe %></span>
+        </button>
+      <% end %>
+    <% else %>
+      <%= form_with url: jest_honks_path(honkable), method: :post, data: { turbo_frame: "jest_#{honkable.id}_honks" } do |f| %>
+        <button type="submit" class="honk-button <%= honkable.honked_by?(current_user) ? 'honked' : '' %>" onclick="showHonkText(event, this)">
+          <span class="honk-icon">🎉</span>
+          <span class="honk-count"><%= honkable.honks.count > 0 ? honkable.honks.count : "&nbsp;".html_safe %></span>
+        </button>
+      <% end %>
+    <% end %>
+  <% else %>
+    <div class="honk-button disabled">
+      <span class="honk-icon">🎉</span>
+      <span class="honk-count"><%= honkable.honks.count > 0 ? honkable.honks.count : "&nbsp;".html_safe %></span>
+    </div>
+  <% end %>
+</div>
+
+<script>
+function showHonkText(event, button) {
+  event.preventDefault();
+  
+  // Create new text element
+  const text = document.createElement('span');
+  text.className = 'honk-text animate';
+  text.textContent = 'HONK!';
+  
+  // Position it relative to the button
+  const rect = button.getBoundingClientRect();
+  text.style.left = rect.left + (rect.width / 2) + 'px';
+  text.style.top = rect.top + 'px';
+  
+  // Add to document
+  document.body.appendChild(text);
+  
+  // Remove after animation
+  setTimeout(() => {
+    text.remove();
+  }, 1000);
+  
+  // Submit the form
+  button.closest('form').requestSubmit();
+}
+</script> 

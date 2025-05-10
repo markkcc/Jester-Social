@@ -1,0 +1,17 @@
+<%= turbo_stream.update "jest_#{@jest.id}_comments" do %>
+  <%= render @comments %>
+<% end %>
+
+<%= turbo_stream.update "pagination-container" do %>
+  <div class="pagination-container">
+    <% if @comment_page > 1 %>
+      <%= link_to "← Previous", jest_path(@jest, comment_page: @comment_page - 1), class: "pagination-button" %>
+    <% end %>
+    
+    <span class="page-number">Page <%= @comment_page %></span>
+    
+    <% if @has_more_comments %>
+      <%= link_to "Next →", jest_path(@jest, comment_page: @comment_page + 1), class: "pagination-button" %>
+    <% end %>
+  </div>
+<% end %> 

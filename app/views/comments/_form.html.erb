@@ -1,0 +1,29 @@
+<div class="jest-card comment-form-card" style="margin-bottom: 1.5rem;">
+  <%= form_with(model: [jest, comment], class: "jest-form", id: "jest_#{jest.id}_comment_form", data: { turbo: true }) do |f| %>
+    <div class="form-group">
+      <%= f.text_area :content, placeholder: "Write a comment...", class: "form-control", maxlength: 1440, oninput: "updateCharCount(this)" %>
+      <div class="char-count" id="jest_<%= jest.id %>_char_count">0 / 1440</div>
+    </div>
+    <%= f.submit "Post Comment", class: "primary-button", id: "jest_#{jest.id}_submit", disabled: true %>
+  <% end %>
+</div>
+
+<script>
+function updateCharCount(textarea) {
+  const count = textarea.value.length;
+  const maxLength = 1440;
+  const counterId = textarea.closest('form').querySelector('.char-count').id;
+  document.getElementById(counterId).textContent = count + ' / ' + maxLength;
+  const submitButton = document.getElementById(textarea.closest('form').querySelector('input[type="submit"]').id);
+  submitButton.disabled = count > maxLength;
+}
+
+document.addEventListener('turbo:submit-end', function(event) {
+  const form = event.target;
+  if (form.id === 'jest_<%= jest.id %>_comment_form') {
+    const textarea = form.querySelector('textarea');
+    textarea.value = '';
+    updateCharCount(textarea);
+  }
+});
+</script> 

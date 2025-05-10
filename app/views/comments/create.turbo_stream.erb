@@ -1,0 +1,9 @@
+<%= turbo_stream.prepend "jest_#{@jest.id}_comments" do %>
+  <%= render "comment", comment: @comment %>
+<% end %>
+
+<script>
+  const textarea = document.getElementById('jest_<%= @jest.id %>_comment_form').querySelector('textarea');
+  textarea.value = '';
+  updateCharCount(textarea);
+</script> 

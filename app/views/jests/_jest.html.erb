@@ -1,0 +1,43 @@
+<div class="jest-card" id="jest_<%= jest.id %>">
+  <div class="jest-header">
+    <div class="author-info">
+      <% if jest.user %>
+        <%= image_tag jest.user.profile_picture_path, alt: jest.user.username, class: "author-avatar" %>
+        <div class="author-details">
+          <span class="username"><%= jest.user.username %></span>
+          <span class="identity"><%= jest.user.identity %></span>
+        </div>
+      <% else %>
+        <%= image_tag "/images/profile_pics/profile_#{rand(1..9)}.png", alt: "Deleted User", class: "author-avatar" %>
+        <div class="author-details">
+          <span class="username">Deleted User</span>
+          <span class="identity">Former Jester</span>
+        </div>
+      <% end %>
+    </div>
+    <div class="jest-meta">
+      <div class="timestamp-container">
+        <span class="timestamp"><%= time_ago_in_words(jest.created_at) %> ago</span>
+        <span class="full-date"><%= jest.created_at.strftime("%A %B %-d %Y") %></span>
+      </div>
+      <% if jest.audience == "secret" %>
+        <span class="secret-label">Secret</span>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="jest-content">
+    <%= link_to jest_path(jest), class: "jest-link" do %>
+      <%= jest.content %>
+    <% end %>
+  </div>
+
+  <div class="jest-actions">
+    <%= render "jests/honks", jest: jest %>
+    <%= render "jests/bonks", jest: jest %>
+    <%= link_to jest_path(jest), class: "comment-link" do %>
+      <span class="comment-icon">💬</span>
+      <span class="comment-count"><%= jest.comments.count > 0 ? jest.comments.count : "&nbsp;".html_safe %></span>
+    <% end %>
+  </div>
+</div> 

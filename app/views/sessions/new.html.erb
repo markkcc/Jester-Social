@@ -1,0 +1,58 @@
+<div class="login-page">
+  <div class="auth-container">
+    <h1>Welcome to the Circus! 🎪</h1>
+
+    <%= tag.div(flash[:alert], class: "error-message") if flash[:alert] %>
+    <%= tag.div(flash[:notice], class: "success-message") if flash[:notice] %>
+
+    <%= form_with url: session_path, class: "auth-form", data: { turbo: false } do |form| %>
+      <div class="form-group">
+        <%= form.label :username, "Clown name" %>
+        <%= form.text_field :username, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your clown name", value: params[:username] %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :password, "Passphrase" %>
+        <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your secret passphrase", maxlength: 72 %>
+      </div>
+
+      <div class="form-actions">
+        <%= form.submit "Enter the circus", class: "primary-button" %>
+        <%= link_to "New to the circus?", "/users/new", class: "secondary-button", data: { turbo: false } %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="recent-jests-preview">
+    <div class="preview-jests">
+      <% @recent_jests.each do |jest| %>
+        <div class="jest-box preview">
+          <div class="jest-header">
+            <div class="jest-user">
+              <div class="jest-avatar">
+                <% if jest.user&.profile_picture.present? %>
+                  <%= image_tag jest.user.profile_picture_path, alt: "#{jest.user.username}'s avatar" %>
+                <% else %>
+                  <%= image_tag "/images/profile_pics/profile_#{rand(1..9)}.png", alt: "Random clown avatar" %>
+                <% end %>
+              </div>
+              <div class="jest-author">
+                <%= jest.user&.username || "Anonymous Clown" %>
+              </div>
+            </div>
+            <div class="jest-time">
+              <%= time_ago_in_words(jest.created_at) %> ago
+            </div>
+          </div>
+          <div class="jest-content">
+            <%= jest.content %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="preview-footer">
+      <%= link_to "Join the circus to see more...", "/users/new", class: "preview-link", data: { turbo: false } %>
+    </div>
+  </div>
+</div>

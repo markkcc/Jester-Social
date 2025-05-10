@@ -1,0 +1,69 @@
+<h1>Jester Social</h1>
+
+<% if Current.user %>
+  <div class="new-jest-container">
+    <div class="new-jest-header">
+      <div class="author-info">
+        <div class="user-avatar">
+          <% if Current.user.profile_picture.present? %>
+            <%= image_tag Current.user.profile_picture_path, alt: "#{Current.user.username}'s avatar" %>
+          <% else %>
+            <%= image_tag "/images/profile_pics/profile_#{rand(1..9)}.png", alt: "Random clown avatar" %>
+          <% end %>
+        </div>
+        <div class="author-details">
+          <span class="username"><%= Current.user.username %></span>
+          <span class="identity"><%= Current.user.identity %></span>
+        </div>
+      </div>
+      <div class="nav-buttons">
+        <%= link_to "Hall of Fame", hall_of_fame_path, class: "hall-of-fame-button" %>
+        <%= form_with url: session_path, method: :delete, data: { turbo_frame: "_top" } do |f| %>
+          <button type="submit" class="leave-circus-button">
+            Leave circus
+          </button>
+        <% end %>
+      </div>
+    </div>
+
+    <div id="new_jest">
+      <%= form_with model: @jest, class: "jest-form" do |form| %>
+        <div class="form-group">
+          <%= form.text_area :content, 
+              required: true, 
+              placeholder: "What's on your mind, clown? 🤡", 
+              maxlength: 280,
+              rows: 3 %>
+        </div>
+        <div class="jest-form-actions">
+          <div class="audience-selector">
+            <label for="jest_audience" class="audience-label">Audience</label>
+            <%= form.select :audience,
+                [["Circus", "circus"], ["Secret", "secret"]],
+                {},
+                { class: "audience-select" } %>
+          </div>
+          <%= form.submit "Share your jest", class: "primary-button" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% else %>
+  <%= link_to "Sign in to jest", new_session_path, class: "new-jest-link" %>
+<% end %>
+
+<div id="jests">
+  <%= render @jests %>
+</div>
+
+<div class="pagination-container">
+  <% if @page > 1 %>
+    <%= link_to "← Previous", jests_path(page: @page - 1), class: "pagination-button" %>
+  <% end %>
+  
+  <span class="page-number">Page <%= @page %></span>
+  
+  <% if @has_more %>
+    <%= link_to "Next →", jests_path(page: @page + 1), class: "pagination-button" %>
+  <% end %>
+</div>

@@ -1,0 +1,4 @@
+<% bonkable = @bonkable || @jest || @comment %>
+<%= turbo_stream.replace "jest_#{bonkable.id}_bonks" do %>
+  <%= render "jests/bonks", jest: bonkable %>
+<% end %> 

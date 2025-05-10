@@ -1,0 +1,34 @@
+<h1>Circus Hall of Fame</h1>
+
+<div class="hall-of-fame-container">
+  <div class="hall-of-fame-column">
+    <h2>Top Honkers</h2>
+    <div class="jest-list">
+      <% @top_honked_jests.each do |jest| %>
+        <%= render "jests/jest", jest: jest %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="hall-of-fame-column">
+    <h2>Top Bonkers</h2>
+    <div class="jest-list">
+      <% @top_bonked_jests.each do |jest| %>
+        <%= render "jests/jest", jest: jest %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="hall-of-fame-column">
+    <h2>Yappers</h2>
+    <div class="jest-list">
+      <% @top_commented_jests.each do |jest| %>
+        <%= render "jests/jest", jest: jest %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="back-to-circus">
+  <%= link_to "🎪 Back to the circus", jests_path, class: "primary-button" %>
+</div> 

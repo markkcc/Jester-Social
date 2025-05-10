@@ -1,0 +1,41 @@
+<div class="jest-show-page">
+  <div class="back-to-circus-top" style="margin-bottom: 1.5rem;">
+    <%= link_to "🎪 Back to the circus", jests_path, class: "primary-button" %>
+  </div>
+
+  <div class="jest-container">
+    <%= render "jest", jest: @jest %>
+
+    <div class="comments-section">
+      <h3>Comments</h3>
+      
+      <% if current_user %>
+        <%= render "comments/form", jest: @jest, comment: Comment.new %>
+      <% else %>
+        <div class="login-prompt">
+          <%= link_to "Log in", new_session_path %> to comment
+        </div>
+      <% end %>
+
+      <div id="jest_<%= @jest.id %>_comments" class="comments">
+        <%= render @comments %>
+      </div>
+
+      <div class="pagination-container">
+        <% if @comment_page > 1 %>
+          <%= link_to "← Previous", jest_path(@jest, comment_page: @comment_page - 1), class: "pagination-button" %>
+        <% end %>
+        
+        <span class="page-number">Page <%= @comment_page %></span>
+        
+        <% if @has_more_comments %>
+          <%= link_to "Next →", jest_path(@jest, comment_page: @comment_page + 1), class: "pagination-button" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="back-link">
+    <%= link_to "← Back to all jests", jests_path, class: "secondary-button" %>
+  </div>
+</div>

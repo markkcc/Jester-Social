@@ -1,0 +1,66 @@
+<h1>Join the Circus</h1>
+
+<div class="auth-container">
+  <%= form_with model: @user, class: "auth-form", data: { turbo: false } do |form| %>
+    <% if @user.errors.any? %>
+      <div class="error-messages">
+        <h2>Oops! Something went wrong:</h2>
+        <ul>
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= form.label :username, "Clown name" %>
+      <%= form.text_field :username, required: true, autofocus: true, autocomplete: "username", placeholder: "Choose your clown name (3-30 characters)", minlength: 3, maxlength: 30 %>
+      <small class="field-hint">Only letters, numbers, underscores, and hyphens allowed</small>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :identity, "Choose your circus role" %>
+      <%= form.select :identity, 
+          User::IDENTITIES.map { |i| [i.titleize, i] },
+          { include_blank: "Select your role..." },
+          { required: true, class: "identity-select" } %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :profile_picture, "Choose your clown avatar" %>
+      <div class="profile-picture-grid">
+        <% random_avatar = rand(1..9) %>
+        <% 9.times do |i| %>
+          <div class="profile-picture-option">
+            <%= form.radio_button :profile_picture, 
+                "profile_#{i + 1}.png", 
+                required: true, 
+                class: "profile-picture-radio",
+                checked: i + 1 == random_avatar %>
+            <%= form.label "profile_picture_profile_#{i + 1}_png", class: "profile-picture-label" do %>
+              <div class="profile-picture-preview">
+                <%= image_tag "/images/profile_pics/profile_#{i + 1}.png", alt: "Profile picture #{i + 1}" %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :password, "Secret passphrase" %>
+      <%= form.password_field :password, required: true, autocomplete: "new-password", placeholder: "Create your secret passphrase" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :password_confirmation, "Confirm passphrase" %>
+      <%= form.password_field :password_confirmation, required: true, autocomplete: "new-password", placeholder: "Repeat your secret passphrase" %>
+    </div>
+
+    <div class="form-actions">
+      <%= form.submit "Join the circus", class: "primary-button" %>
+      <%= link_to "Already a clown?", new_session_path, class: "secondary-button" %>
+    </div>
+  <% end %>
+</div> 

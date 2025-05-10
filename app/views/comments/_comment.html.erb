@@ -1,0 +1,34 @@
+<div class="jest-card" id="comment_<%= comment.id %>">
+  <div class="jest-header">
+    <div class="author-info">
+      <% if comment.user %>
+        <%= image_tag comment.user.profile_picture_path, alt: comment.user.username, class: "author-avatar" %>
+        <div class="author-details">
+          <span class="username"><%= comment.user.username %></span>
+          <span class="identity"><%= comment.user.identity %></span>
+        </div>
+      <% else %>
+        <%= image_tag "/images/profile_pics/profile_#{rand(1..9)}.png", alt: "Deleted User", class: "author-avatar" %>
+        <div class="author-details">
+          <span class="username">Deleted User</span>
+          <span class="identity">Former Jester</span>
+        </div>
+      <% end %>
+    </div>
+    <div class="jest-meta">
+      <div class="timestamp-container">
+        <span class="timestamp"><%= time_ago_in_words(comment.created_at) %> ago</span>
+        <span class="full-date"><%= comment.created_at.strftime("%A %B %-d %Y") %></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="jest-content">
+    <%= comment.content %>
+  </div>
+
+  <div class="jest-actions">
+    <%= render "jests/honks", jest: comment %>
+    <%= render "jests/bonks", jest: comment %>
+  </div>
+</div> 
